@@ -1,0 +1,27 @@
+kubectl get pods
+kubectl get nodes
+vim pod.yml
+
+apiVersion: v1
+metadata:
+  name: delhipod
+  labels:                                                   
+    env: development
+    class: pods
+spec:
+    containers:
+       - name: c00
+         image: ubuntu
+         command: ["/bin/bash", "-c", "while true; do echo Hello-World; sleep 5 ; done"]
+
+
+kubectl apply -f pod.yml
+kubectl get pods -o wide
+kubectl get pods --show-labels
+kubectl label pods delhipod myname=Subho
+kubectl get pods -l env=development
+kubectl get pods -l env!=development
+kubectl delete pod -l env!=development
+kubectl get pods -l 'env in(development,testing)'
+kubectl get pods -l 'env notin(development,testing)'
+kubectl delete pods -l 'env in(development,testing)'
